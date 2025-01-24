@@ -4,7 +4,7 @@
 
 **Link to Assignment on Github:** (https://github.com/5004-SEA-Fa24-Geeng/hello-world-jennnyren/tree/main)
 
-How many hours did it take you to complete this assignment (estimate)? -8h
+How many hours did it take you to complete this assignment (estimate)? -8 hours
 
 Did you collaborate with any other students/TAs/Professors? If so, tell us who and in what
 capacity. 
