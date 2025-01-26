@@ -4,42 +4,93 @@ The following report contains questions you need to answer as part of your submi
 
 
 ## Design Doc
-Please link your UML design file here. See resources in the assignment on how to
-link an image in markdown. You may also use [mermaid] class diagrams if you prefer, if so, include the mermaid code here.  You DO NOT have to include Greeting.java as part of the diagram, just the AlohaWorld application that includes: [AlohaWorld.java], [Greeter.java], and [ConsoleView.java].
+classDiagram
+    class AlohaWorld {
+        - AlohaWorld()
+        + main()
+    }
 
+    class ConsoleView {
+        - Scanner SCANNER
+        - List~String~ LOCALITY_OPTIONS
+        - ConsoleView()
+        + getName()
+        + getLocality()
+        + checkRunAgain()
+        + printGreeting()
+    }
 
+    class Greeter {
+        - String name
+        - int locality
+        - List~String~ localityList
+        - int HAWAII=1
+        - int CHINA=3
+        - int ITALY=4
+        - int DEFAULT_LOCALITY=2
+        + Greeter(String name)
+        + Greeter(String name, int locality)
+        + String getName()
+        + int getLocality()
+        + setLocality(int locality)
+        + String greet()
+        + String greet(boolean asciiOnly)
+        - String getLocalityString()
+        + int hashCode()
+        + boolean equals(Object obj)
+        + String toString()
+        + List~String~ getLocalityList()
+    }
+
+    AlohaWorld ..> Greeter
+    AlohaWorld ..> ConsoleView
+    ConsoleView ..> Greeter
 
 ### Program Flow
-Write a short paragraph detailing the flow of the program in your own words. This is to help you understand / trace the code (and give you practice of something called a code walk that will be required in this course).
+Program flow:
 
+The program begins execution in the main method of the `AlohaWorld` class. 
+It prompts the user for their name through `ConsoleView.getName()` method, and asks the user to select a locality via the `ConsoleView.getLocality()` method.
+
+A `Greeter` object is created with the user’s name and selected locality, and the `Greeter.greet()` method is called to generate the greeting message, which is displayed using `Consoleview.printGreeting()` method.
+
+After displaying the greeting, the program enters a loop controlled by the user’s choice. The `ConsoleView.checkRunAgain()` method determines if the user wishes to receive another greeting.
+
+The `AlohaWorld.java` acts as the entry point of the program and manages the overall flow by interacting with other classes. The `ConsoleView.java` handles all user interactions including collecting the user’s name and locality, displaying the message and confirming if the user wants to continue. The `Greeter.java` represents a greeter object containing the user’s name and selected locality, generates greeting messages based on the selected locality and provides methods to update and validate the locality dynamically. 
 
 ## Assignment Questions
 
 1. List three additional java syntax items you didn't know when reading the code.  (make sure to use * for the list items, see example below, the backtick marks are used to write code inline with markdown)
    
-   * (example) `final class`
+   * `System. in`
+   * `static`
+   * `final`
+
 
 2. For each syntax additional item listed above, explain what it does in your own words and then link a resource where you figured out what it does in the references section. 
 
-    * (example) The `final` keyword when used on a class prevents the class from being subclassed. This means that the class cannot be extended by another class. This is useful when you want to prevent a class from being modified or extended[^1] . It is often the standard to do this when a class only contains static methods such as driver or utility classes. Math in Java is an example of a final class[^2] .
+    * The `final` keyword is used to create constants or to prevent modifications. It can be applied to variables, methods and classes. For example, when a variable is declared as `final`, its value cannot be changed: `final int AGE = 30;`
+    * `System. in` is a part of the `java.lang`package that represents the standard input system. It is used to read input from the user in a console application. For example: `Scanner scanner = new Scanner(System.in);`
+    * The `static` keyword is used to define members that belong to the class rather than any other specific instances in the class. It can be applied to variables, methods, blocks and nested classes. For example, `static int count = 0;`
+
 
 3. What does `main` do in Java? 
 
-    Go ahead and answer the question as a short paragraph / few sentences. Notice the indent, this is valid because it is a list item. (erase this line before writing.)
+    It acts as a 'driver' in the program, in other words, it gets the program running.
 
 
 4. What does `toString()` do in Java? Why should any object class you create have a `toString()` method?
 
-    Same as above - short answer
+    The `toString()` method is used to provide a string representation of an object. The reason why we override `toString()` is to improve readability and it helps debug.
 
 5. What is javadoc style commenting? What is it used for? 
 
-    Same as above - short answer
+    Javadoc is a documentation tool that generates a HTML that includes comments written in the specific java code, and these comments are called Javadoc-style comments, staring with /** and end with */. It is used to generate documentation and improve code readability.
 
 
 6. Describe Test Driving Development (TDD) in your own words. 
 
-    Same as above - short answer    
+    TDD is a process where we write tests before the writing the actual code.
 
 7. Go to the [Markdown Playground](MarkdownPlayground.md) and add at least 3 different markdown elements you learned about by reading the markdown resources listed in the document. Additionally you need to add a mermaid class diagram (of your choice does not have to follow the assignment. However, if you did use mermaid for the assignment, you can just copy that there). Add the elements into the markdown file, so that the formatting changes are reserved to that file. 
 
@@ -50,10 +101,10 @@ These questions require deeper thinking of the topic. We don't expect 100% corre
 
 
 1. Why would we want to keep interaction with the client contained to ConsoleView?
-
+Containing the client interaction in `ConsoleView` aligns with best practices in software design. It makes the application easier to test, maintain, and extend while keeping the program's components focused on their individual responsibilities.
 
 2. Right now, the application isn't very dynamic in that it can be difficult to add new languages and greetings without modifying the code every time. Just thinking programmatically,  how could you make the application more dynamic? You are free to reference Geeting.java and how that could be used in your design.
-
+We can modify ConsoleView class to make it easier to add new localities.
 
 
 > [!IMPORTANT]
